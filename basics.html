@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Internal CSs -->
+    <style>
+        .h1-design {
+            color: green;
+            background-color: #000;
+            margin: 20px;
+            padding: 30px;
+        }
+
+        .description p {
+            background-color: #000;
+            color: #fff;
+
+            /* Way's to write margin and padding !! */
+
+            /* margin-top: 40px;
+            margin-right: 50px;
+            margin-bottom: 60px;
+            margin-left: 70px; */
+
+            /* If we want different margin in all sides*/
+            margin: 40px 50px 60px 70px;
+            /* If we want top and bootom and left and right similar */
+            padding: 30px 40px;
+        }
+
+
+        /* Css font-weights */
+        .bold-text {
+            font-weight: bold;
+        }
+
+        .extra-bold {
+            font-weight: 900;
+            font-size: 25px;
+        }
+
+        .light-text {
+            font-weight: 300;
+        }
+
+        .description {
+            border: 5px dotted orange;
+        }
+
+        .table-bg-img {
+            background-image: url(./img/image\ 33.png);
+            background-repeat: no-repeat;
+            margin-bottom: 20px;
+            height: 300px;
+            background-position: center;
+            background-size: cover;
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Compelted  -->
+    <!-- Heading Tags, p , a, img, comments,  -->
+
+    <!-- lists -->
+    <!-- In-line Css -->
+
+    <div style="
+    background-image: url(./img/image1.jpeg); 
+    background-size: cover; 
+    width: 100%;
+    background-repeat: no-repeat;
+    height: 500px;
+    background-position: center;
+     ">
+        <h1
+            style="color: blue; background-color: orange; margin: 10px; padding: 10px; display: inline-block; margin-top: 50px;">
+            Heading this is un-order lists
+        </h1>
+
+        <ul style="list-style: none;">
+            <li>APPLE</li>
+            <li>BANANA</li>
+            <li>ORANGE</li>
+        </ul>
+
+    </div>
+
+
+
+
+    <div class="description">
+        <p class="light-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam iure quaerat incidunt fuga voluptatibus a
+            corporis quibusdam, quam, consectetur voluptatem nulla necessitatibus nostrum porro voluptate consequuntur
+            exercitationem sint velit aut.
+        </p>
+
+        <p class="extra-bold">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam dolores nam at ducimus
+            voluptas hic vel distinctio sapiente mollitia ex.</p>
+    </div>
+
+
+
+    <!-- <div class="second-description">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam omnis ipsam voluptate amet neque voluptas.
+            Quo, accusamus? Eius expedita nulla deserunt cum ducimus dolor praesentium neque blanditiis. Suscipit,
+            dolorum voluptates.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam omnis ipsam voluptate amet neque voluptas.
+            Quo, accusamus? Eius expedita nulla deserunt cum ducimus dolor praesentium neque blanditiis. Suscipit,
+            dolorum voluptates.</p>
+    </div> -->
+
+
+
+    <h1 class="h1-design">Heading this is order lists</h1>
+
+
+    <ol>
+        <li>APPLE</li>
+        <li>BANANA</li>
+        <li>ORANGE</li>
+    </ol>
+
+    <h1 class="h1-design">Heading this is description lists</h1>
+
+    <dl>
+        <dt>HTML</dt>
+        <dd>Hyper Text Markup Language</dd>
+        <dt>CSS</dt>
+        <dd>Cascading Style Sheets</dd>
+        <dt>JS</dt>
+        <dd>JavaScript</dd>
+    </dl>
+
+
+
+
+    <h2>A HTML table</h2>
+
+    <!-- <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style> -->
+
+    <div class="table-width">
+        <table class="table-bg-img" border='1px'>
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Contact</th>
+                    <th>Country</th>
+                    <th>Project</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Alfreds Futterkiste</td>
+                    <td>Maria Anders</td>
+                    <td>Germany</td>
+                    <td>German Project</td>
+                </tr>
+                <tr>
+                    <td>Centro comercial Moctezuma</td>
+                    <td>Francisco Chang</td>
+                    <td>Mexico</td>
+                    <td>Mexican Project</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+</body>
+
+</html>
