@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox Complete Guide</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            min-height: 600px;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-container {
+            border: 3px dashed #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .flex-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            margin: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .property-tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .btn-nav {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 10px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .real-world-example {
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f0fff4;
+        }
+
+        .flex-item-1 {
+            flex: 1;
+        }
+
+        .flex-item-2 {
+            flex: 2;
+        }
+
+        .flex-item-3 {
+            flex: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-counter" id="slideCounter">Slide 1 / 12</div>
+
+    <!-- Slide 1: Introduction -->
+    <div class="slide active">
+        <h1>🎯 CSS Flexbox: Complete Guide</h1>
+        <h2>What is Flexbox?</h2>
+        <p>Flexbox (Flexible Box Layout) is a one-dimensional layout method for arranging items in rows or columns.
+            Items flex (expand) to fill additional space or shrink to fit into smaller spaces.</p>
+
+        <h2>Why Learn Flexbox?</h2>
+        <ul>
+            <li><strong>Easy Alignment:</strong> Center things vertically and horizontally with ease</li>
+            <li><strong>Responsive Design:</strong> Items automatically adjust to screen size</li>
+            <li><strong>No Floats:</strong> Cleaner, more predictable layouts</li>
+            <li><strong>Space Distribution:</strong> Control spacing between elements intelligently</li>
+        </ul>
+
+        <div class="real-world-example">
+            <h3>🌟 Real-World Uses:</h3>
+            <p>Navigation bars, card layouts, form layouts, toolbars, footer sections, mobile app interfaces, dashboard
+                widgets</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Basic Concept -->
+    <div class="slide">
+        <h1>📦 Flexbox Basic Concept</h1>
+        <h2>Container vs Items</h2>
+        <p>Flexbox has two key components:</p>
+        <ul>
+            <li><strong>Flex Container (Parent):</strong> Element with <span class="highlight">display: flex</span></li>
+            <li><strong>Flex Items (Children):</strong> Direct children of the flex container</li>
+        </ul>
+
+        <div class="demo-container" style="display: flex;">
+            <div class="flex-item">Item 1</div>
+            <div class="flex-item">Item 2</div>
+            <div class="flex-item">Item 3</div>
+        </div>
+
+        <div class="code-block">
+            <pre>.container {
+    display: flex;  /* This creates a flex container */
+}
+
+.item {
+    /* These are flex items automatically */
+}</pre>
+        </div>
+
+        <p><strong>Key Point:</strong> Once you add <span class="highlight">display: flex</span> to a parent element,
+            all direct children become flex items and line up in a row by default.</p>
+    </div>
+
+    <!-- Slide 3: Flex Direction -->
+    <div class="slide">
+        <h1>↔️ Flex Direction</h1>
+        <h2>Control the Main Axis</h2>
+        <p><span class="property-tag">flex-direction</span> defines the direction flex items are placed in the
+            container.</p>
+
+        <h3>Row (Default):</h3>
+        <div class="demo-container" style="display: flex; flex-direction: row;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>Column:</h3>
+        <div class="demo-container" style="display: flex; flex-direction: column;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <div class="code-block">
+            <pre>.container {
+    display: flex;
+    flex-direction: row;          /* left to right (default) */
+    flex-direction: row-reverse;  /* right to left */
+    flex-direction: column;       /* top to bottom */
+    flex-direction: column-reverse; /* bottom to top */
+}</pre>
+        </div>
+    </div>
+
+    <!-- Slide 4: Justify Content -->
+    <div class="slide">
+        <h1>📍 Justify Content</h1>
+        <h2>Align Items on Main Axis</h2>
+        <p><span class="property-tag">justify-content</span> aligns items along the main axis (horizontally if row,
+            vertically if column).</p>
+
+        <h3>Flex Start (Default):</h3>
+        <div class="demo-container" style="display: flex; justify-content: flex-start;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>Center:</h3>
+        <div class="demo-container" style="display: flex; justify-content: center;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>Space Between:</h3>
+        <div class="demo-container" style="display: flex; justify-content: space-between;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>Space Around:</h3>
+        <div class="demo-container" style="display: flex; justify-content: space-around;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <div class="code-block">
+            <pre>justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;</pre>
+        </div>
+    </div>
+
+    <!-- Slide 5: Align Items -->
+    <div class="slide">
+        <h1>⬆️ Align Items</h1>
+        <h2>Align Items on Cross Axis</h2>
+        <p><span class="property-tag">align-items</span> aligns items along the cross axis (vertically if row,
+            horizontally if column).</p>
+
+        <h3>Stretch (Default):</h3>
+        <div class="demo-container" style="display: flex; align-items: stretch; height: 150px;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>Center:</h3>
+        <div class="demo-container" style="display: flex; align-items: center; height: 150px;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>Flex Start:</h3>
+        <div class="demo-container" style="display: flex; align-items: flex-start; height: 150px;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <div class="code-block">
+            <pre>align-items: stretch | flex-start | flex-end | center | baseline;</pre>
+        </div>
+    </div>
+
+    <!-- Slide 6: Perfect Centering -->
+    <div class="slide">
+        <h1>🎯 Perfect Centering</h1>
+        <h2>The Holy Grail of CSS</h2>
+        <p>Combine <span class="highlight">justify-content</span> and <span class="highlight">align-items</span> to
+            center perfectly!</p>
+
+        <div class="demo-container" style="display: flex; justify-content: center; align-items: center; height: 300px;">
+            <div class="flex-item" style="font-size: 24px;">🎉 Perfectly Centered!</div>
+        </div>
+
+        <div class="code-block">
+            <pre>.container {
+    display: flex;
+    justify-content: center;  /* center horizontally */
+    align-items: center;      /* center vertically */
+    height: 300px;            /* give it a height */
+}
+
+/* Before Flexbox, this was a nightmare! */</pre>
+        </div>
+
+        <div class="real-world-example">
+            <h3>🌟 Real Use Cases:</h3>
+            <ul>
+                <li>Login forms centered on page</li>
+                <li>Modal dialog boxes</li>
+                <li>Hero section content</li>
+                <li>Card content alignment</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 7: Flex Wrap -->
+    <div class="slide">
+        <h1>🔄 Flex Wrap</h1>
+        <h2>Handle Overflow</h2>
+        <p><span class="property-tag">flex-wrap</span> controls whether items wrap to new lines when they don't fit.</p>
+
+        <h3>No Wrap (Default) - Items Shrink:</h3>
+        <div class="demo-container" style="display: flex; flex-wrap: nowrap;">
+            <div class="flex-item">Item 1</div>
+            <div class="flex-item">Item 2</div>
+            <div class="flex-item">Item 3</div>
+            <div class="flex-item">Item 4</div>
+            <div class="flex-item">Item 5</div>
+            <div class="flex-item">Item 6</div>
+        </div>
+
+        <h3>Wrap - Items Go to Next Line:</h3>
+        <div class="demo-container" style="display: flex; flex-wrap: wrap;">
+            <div class="flex-item" style="min-width: 150px;">Item 1</div>
+            <div class="flex-item" style="min-width: 150px;">Item 2</div>
+            <div class="flex-item" style="min-width: 150px;">Item 3</div>
+            <div class="flex-item" style="min-width: 150px;">Item 4</div>
+            <div class="flex-item" style="min-width: 150px;">Item 5</div>
+            <div class="flex-item" style="min-width: 150px;">Item 6</div>
+        </div>
+
+        <div class="code-block">
+            <pre>.container {
+    display: flex;
+    flex-wrap: wrap;  /* Allow items to wrap to next line */
+}
+
+/* Perfect for responsive card grids! */</pre>
+        </div>
+    </div>
+
+    <!-- Slide 8: Gap Property -->
+    <div class="slide">
+        <h1>📏 Gap Property</h1>
+        <h2>Space Between Items</h2>
+        <p><span class="property-tag">gap</span> creates space between flex items without margins.</p>
+
+        <h3>No Gap:</h3>
+        <div class="demo-container" style="display: flex;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>With Gap:</h3>
+        <div class="demo-container" style="display: flex; gap: 20px;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+        </div>
+
+        <h3>Different Row and Column Gap:</h3>
+        <div class="demo-container" style="display: flex; flex-wrap: wrap; gap: 20px 40px;">
+            <div class="flex-item">1</div>
+            <div class="flex-item">2</div>
+            <div class="flex-item">3</div>
+            <div class="flex-item">4</div>
+            <div class="flex-item">5</div>
+        </div>
+
+        <div class="code-block">
+            <pre>.container {
+    display: flex;
+    gap: 20px;           /* same gap in all directions */
+    gap: 20px 40px;      /* row-gap column-gap */
+}</pre>
+        </div>
+    </div>
+
+    <!-- Slide 9: Flex Grow, Shrink, Basis -->
+    <div class="slide">
+        <h1>📊 Flex Item Properties</h1>
+        <h2>Control Individual Items</h2>
+
+        <h3>Flex Grow - Items Expand:</h3>
+        <div class="demo-container" style="display: flex; gap: 10px;">
+            <div class="flex-item flex-item-1">flex: 1</div>
+            <div class="flex-item flex-item-2">flex: 2</div>
+            <div class="flex-item flex-item-1">flex: 1</div>
+        </div>
+
+        <h3>Flex Basis - Starting Size:</h3>
+        <div class="demo-container" style="display: flex; gap: 10px;">
+            <div class="flex-item" style="flex-basis: 100px;">100px</div>
+            <div class="flex-item" style="flex-basis: 200px;">200px</div>
+            <div class="flex-item" style="flex-basis: 150px;">150px</div>
+        </div>
+
+        <div class="code-block">
+            <pre>.item {
+    flex-grow: 1;      /* How much item grows (default: 0) */
+    flex-shrink: 1;    /* How much item shrinks (default: 1) */
+    flex-basis: auto;  /* Starting size (default: auto) */
+    
+    /* Shorthand: */
+    flex: 1;           /* flex: grow shrink basis */
+    flex: 1 0 200px;   /* grow 1, don't shrink, start at 200px */
+}</pre>
+        </div>
+
+        <p><strong>Think of it:</strong> flex-grow is like "how greedy is this item for extra space?"</p>
+    </div>
+
+    <!-- Slide 10: Real World Example - Navigation -->
+    <div class="slide">
+        <h1>🌐 Real Example: Navigation Bar</h1>
+
+        <div
+            style="background: #333; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+            <div style="color: white; font-size: 24px; font-weight: bold;">LOGO</div>
+            <div style="display: flex; gap: 25px;">
+                <div style="color: white; cursor: pointer;">Home</div>
+                <div style="color: white; cursor: pointer;">About</div>
+                <div style="color: white; cursor: pointer;">Services</div>
+                <div style="color: white; cursor: pointer;">Contact</div>
+            </div>
+            <div>
+                <button class="btn btn-primary">Login</button>
+            </div>
+        </div>
+
+        <div class="code-block">
+            <pre>&lt;nav class="navbar"&gt;
+    &lt;div class="logo"&gt;LOGO&lt;/div&gt;
+    &lt;div class="nav-links"&gt;
+        &lt;a href="#"&gt;Home&lt;/a&gt;
+        &lt;a href="#"&gt;About&lt;/a&gt;
+        &lt;a href="#"&gt;Services&lt;/a&gt;
+        &lt;a href="#"&gt;Contact&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;button&gt;Login&lt;/button&gt;
+&lt;/nav&gt;
+
+&lt;style&gt;
+.navbar {
+    display: flex;
+    justify-content: space-between;  /* Logo left, button right */
+    align-items: center;             /* Vertically center */
+    padding: 15px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;                       /* Space between links */
+}
+&lt;/style&gt;</pre>
+        </div>
+    </div>
+
+    <!-- Slide 11: Real World Example - Card Layout -->
+    <div class="slide">
+        <h1>🎴 Real Example: Card Layout</h1>
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+            <div
+                style="flex: 1; min-width: 250px; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px;">
+                <div
+                    style="height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; margin-bottom: 15px;">
+                </div>
+                <h3 style="color: #333;">Product 1</h3>
+                <p style="color: #666;">Description of the product goes here.</p>
+                <button class="btn btn-primary">Buy Now</button>
+            </div>
+            <div
+                style="flex: 1; min-width: 250px; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px;">
+                <div
+                    style="height: 150px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 8px; margin-bottom: 15px;">
+                </div>
+                <h3 style="color: #333;">Product 2</h3>
+                <p style="color: #666;">Description of the product goes here.</p>
+                <button class="btn btn-primary">Buy Now</button>
+            </div>
+            <div
+                style="flex: 1; min-width: 250px; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px;">
+                <div
+                    style="height: 150px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 8px; margin-bottom: 15px;">
+                </div>
+                <h3 style="color: #333;">Product 3</h3>
+                <p style="color: #666;">Description of the product goes here.</p>
+                <button class="btn btn-primary">Buy Now</button>
+            </div>
+        </div>
+
+        <div class="code-block">
+            <pre>.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;  /* Cards wrap on smaller screens */
+}
+
+.card {
+    flex: 1;              /* Cards grow equally */
+    min-width: 250px;     /* Don't get too small */
+}
+
+/* Responsive without media queries! */</pre>
+        </div>
+    </div>
+
+    <!-- Slide 12: Cheat Sheet -->
+    <div class="slide">
+        <h1>📋 Flexbox Cheat Sheet</h1>
+
+        <h2>Container Properties:</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="code-block">
+                    <pre>display: flex;
+flex-direction: row | column;
+justify-content: 
+  flex-start | center | 
+  flex-end | space-between |
+  space-around | space-evenly;
+align-items:
+  stretch | flex-start |
+  flex-end | center | baseline;</pre>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="code-block">
+                    <pre>flex-wrap: nowrap | wrap;
+gap: 20px;
+align-content:
+  flex-start | center |
+  flex-end | space-between |
+  space-around | stretch;</pre>
+                </div>
+            </div>
+        </div>
+
+        <h2>Item Properties:</h2>
+        <div class="code-block">
+            <pre>flex-grow: 0;        /* How much to grow */
+flex-shrink: 1;      /* How much to shrink */
+flex-basis: auto;    /* Starting size */
+flex: 1;             /* Shorthand: grow shrink basis */
+align-self: auto;    /* Override container's align-items */
+order: 0;            /* Change visual order */</pre>
+        </div>
+
+        <div class="real-world-example">
+            <h3>🎓 Practice Tips:</h3>
+            <ul>
+                <li>Start with simple layouts and gradually add complexity</li>
+                <li>Use browser DevTools to experiment with flex properties</li>
+                <li>Combine with Grid for complex two-dimensional layouts</li>
+                <li>Remember: Flexbox is one-dimensional (row OR column at a time)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-primary btn-nav" onclick="previousSlide()">← Previous</button>
+        <button class="btn btn-primary btn-nav" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideCounter').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+            window.scrollTo(0, 0);
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

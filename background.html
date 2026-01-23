@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Fonts & Background Images</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background-color: #212529;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .slide-container.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* Slide Content Box */
+        .slide-content {
+            background: white;
+            color: #333;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            max-width: 950px;
+            width: 90%;
+            min-height: 550px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-top: 10px solid #e74c3c;
+        }
+
+        h1,
+        h2 {
+            color: #e74c3c;
+            font-weight: 800;
+        }
+
+        h4 {
+            color: #444;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        /* Code Blocks */
+        .code-box {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            border-left: 5px solid #e74c3c;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .tag {
+            color: #569cd6;
+        }
+
+        .attr {
+            color: #9cdcfe;
+        }
+
+        .val {
+            color: #ce9178;
+        }
+
+        .css-prop {
+            color: #9cdcfe;
+        }
+
+        .css-val {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        /* Navigation Controls */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-nav {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-nav:hover {
+            background: white;
+            color: #333;
+        }
+
+        /* Demo Boxes */
+        .demo-box {
+            padding: 20px;
+            border: 2px dashed #ccc;
+            margin-top: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .comparison-table th {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Background Demo Boxes */
+        .bg-demo-inline {
+            background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?w=800');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        .bg-demo-external {
+            background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        .overlay-demo {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls">
+        <button class="btn btn-nav" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+        <span id="slide-number" class="mx-3 fw-bold">1 / 13</span>
+        <button class="btn btn-nav" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Slide 1: Title -->
+    <div class="slide-container active">
+        <div class="slide-content text-center">
+            <i class="fas fa-font fa-5x mb-3" style="color: #e74c3c;"></i>
+            <h1 class="display-3">CSS Text Styling & Backgrounds</h1>
+            <p class="lead text-muted">Mastering Font Styles and Background Images</p>
+            <hr>
+            <div class="text-start mx-auto" style="max-width: 600px;">
+                <h5><i class="fas fa-clipboard-list"></i> Today's Topics:</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">1. Making Text Bold</li>
+                    <li class="list-group-item">2. Making Text Italic</li>
+                    <li class="list-group-item">3. HTML Tags: &lt;strong&gt;, &lt;em&gt;, &lt;b&gt;, &lt;i&gt;</li>
+                    <li class="list-group-item">4. CSS Font Properties</li>
+                    <li class="list-group-item">5. Why Background Images?</li>
+                    <li class="list-group-item">6. Adding Background Images (Inline & External)</li>
+                    <li class="list-group-item">7. Background Properties</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Making Text Bold - HTML Tags -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-bold"></i> Making Text Bold - HTML Way</h2>
+            <p>There are two HTML tags to make text bold:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">&lt;!-- Using &lt;strong&gt; tag --&gt;</span><br>
+                        &lt;<span class="tag">p</span>&gt;This is &lt;<span
+                            class="tag">strong</span>&gt;important&lt;/<span class="tag">strong</span>&gt;
+                        text.&lt;/<span class="tag">p</span>&gt;<br><br>
+
+                        <span class="comment">&lt;!-- Using &lt;b&gt; tag --&gt;</span><br>
+                        &lt;<span class="tag">p</span>&gt;This is &lt;<span class="tag">b</span>&gt;bold&lt;/<span
+                            class="tag">b</span>&gt; text.&lt;/<span class="tag">p</span>&gt;
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Result:</h4>
+                    <div class="demo-box">
+                        <p>This is <strong>important</strong> text.</p>
+                        <p>This is <b>bold</b> text.</p>
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <strong><i class="fas fa-info-circle"></i> Key Difference:</strong><br>
+                        <code>&lt;strong&gt;</code> = Semantic (means important)<br>
+                        <code>&lt;b&gt;</code> = Visual only (just looks bold)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Making Text Bold - CSS Way -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-code"></i> Making Text Bold - CSS Way</h2>
+            <p>Use the <code>font-weight</code> property in CSS:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">/* CSS */</span><br>
+                        <span class="tag">.bold-text</span> {<br>
+                        &nbsp; <span class="css-prop">font-weight</span>: <span class="css-val">bold</span>;<br>
+                        }<br><br>
+
+                        <span class="tag">.extra-bold</span> {<br>
+                        &nbsp; <span class="css-prop">font-weight</span>: <span class="css-val">900</span>;<br>
+                        }<br><br>
+
+                        <span class="tag">.light-text</span> {<br>
+                        &nbsp; <span class="css-prop">font-weight</span>: <span class="css-val">300</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Font Weight Values:</h4>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Value</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>normal</code> or <code>400</code></td>
+                                <td style="font-weight: 400;">Normal Text</td>
+                            </tr>
+                            <tr>
+                                <td><code>bold</code> or <code>700</code></td>
+                                <td style="font-weight: 700;">Bold Text</td>
+                            </tr>
+                            <tr>
+                                <td><code>100-900</code></td>
+                                <td style="font-weight: 900;">Extra Bold (900)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Making Text Italic - HTML Tags -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-italic"></i> Making Text Italic - HTML Way</h2>
+            <p>There are two HTML tags to make text italic:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">&lt;!-- Using &lt;em&gt; tag --&gt;</span><br>
+                        &lt;<span class="tag">p</span>&gt;This is &lt;<span
+                            class="tag">em</span>&gt;emphasized&lt;/<span class="tag">em</span>&gt; text.&lt;/<span
+                            class="tag">p</span>&gt;<br><br>
+
+                        <span class="comment">&lt;!-- Using &lt;i&gt; tag --&gt;</span><br>
+                        &lt;<span class="tag">p</span>&gt;This is &lt;<span class="tag">i</span>&gt;italic&lt;/<span
+                            class="tag">i</span>&gt; text.&lt;/<span class="tag">p</span>&gt;
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Result:</h4>
+                    <div class="demo-box">
+                        <p>This is <em>emphasized</em> text.</p>
+                        <p>This is <i>italic</i> text.</p>
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <strong><i class="fas fa-info-circle"></i> Key Difference:</strong><br>
+                        <code>&lt;em&gt;</code> = Semantic (means emphasis)<br>
+                        <code>&lt;i&gt;</code> = Visual only (just looks italic)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Making Text Italic - CSS Way -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-code"></i> Making Text Italic - CSS Way</h2>
+            <p>Use the <code>font-style</code> property in CSS:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">/* CSS */</span><br>
+                        <span class="tag">.italic-text</span> {<br>
+                        &nbsp; <span class="css-prop">font-style</span>: <span class="css-val">italic</span>;<br>
+                        }<br><br>
+
+                        <span class="tag">.oblique-text</span> {<br>
+                        &nbsp; <span class="css-prop">font-style</span>: <span class="css-val">oblique</span>;<br>
+                        }<br><br>
+
+                        <span class="tag">.normal-text</span> {<br>
+                        &nbsp; <span class="css-prop">font-style</span>: <span class="css-val">normal</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Font Style Values:</h4>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Value</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>normal</code></td>
+                                <td style="font-style: normal;">Normal Text</td>
+                            </tr>
+                            <tr>
+                                <td><code>italic</code></td>
+                                <td style="font-style: italic;">Italic Text</td>
+                            </tr>
+                            <tr>
+                                <td><code>oblique</code></td>
+                                <td style="font-style: oblique;">Oblique Text</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Comparison Table -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-table"></i> HTML Tags vs CSS Properties</h2>
+            <table class="table table-bordered comparison-table mt-4">
+                <thead>
+                    <tr>
+                        <th>Style</th>
+                        <th>HTML Tags</th>
+                        <th>CSS Properties</th>
+                        <th>When to Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">Bold</td>
+                        <td>
+                            <code>&lt;strong&gt;</code><br>
+                            <code>&lt;b&gt;</code>
+                        </td>
+                        <td><code>font-weight: bold;</code></td>
+                        <td>Use <code>&lt;strong&gt;</code> for important text<br>Use CSS for styling</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Italic</td>
+                        <td>
+                            <code>&lt;em&gt;</code><br>
+                            <code>&lt;i&gt;</code>
+                        </td>
+                        <td><code>font-style: italic;</code></td>
+                        <td>Use <code>&lt;em&gt;</code> for emphasis<br>Use CSS for styling</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-success mt-3">
+                <strong><i class="fas fa-lightbulb"></i> Best Practice:</strong><br>
+                Use semantic HTML tags (<code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>) when the text has meaning,
+                and use CSS when it's just for visual styling!
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Combining Styles -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-layer-group"></i> Combining Bold and Italic</h2>
+            <p>You can combine both styles in HTML or CSS:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">&lt;!-- HTML Way --&gt;</span><br>
+                        &lt;<span class="tag">p</span>&gt;&lt;<span class="tag">strong</span>&gt;&lt;<span
+                            class="tag">em</span>&gt;Bold and Italic&lt;/<span class="tag">em</span>&gt;&lt;/<span
+                            class="tag">strong</span>&gt;&lt;/<span class="tag">p</span>&gt;<br><br>
+
+                        <span class="comment">/* CSS Way */</span><br>
+                        <span class="tag">.bold-italic</span> {<br>
+                        &nbsp; <span class="css-prop">font-weight</span>: <span class="css-val">bold</span>;<br>
+                        &nbsp; <span class="css-prop">font-style</span>: <span class="css-val">italic</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Result:</h4>
+                    <div class="demo-box">
+                        <p style="font-weight: bold; font-style: italic; font-size: 24px;">
+                            This text is both BOLD and ITALIC!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Why Background Images? -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-question-circle"></i> Why Do We Need Background Images?</h2>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4>Reasons to Use Background Images:</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Visual Appeal</strong><br>
+                            <small>Makes websites more attractive and engaging</small>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Branding</strong><br>
+                            <small>Establish identity with hero sections, banners</small>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Content Separation</strong><br>
+                            <small>Create distinct sections on a page</small>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Text Overlays</strong><br>
+                            <small>Place text on top of images</small>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Professional Look</strong><br>
+                            <small>Modern websites use background images extensively</small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>Example Use Cases:</h4>
+                    <div class="demo-box p-0">
+                        <div
+                            style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1557683316-973673baf926?w=800'); background-size: cover; padding: 40px; color: white; text-align: center; border-radius: 8px;">
+                            <h3>Hero Section</h3>
+                            <p>Welcome to Our Website</p>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning mt-3">
+                        <strong>Note:</strong> Background images don't break the layout like regular
+                        <code>&lt;img&gt;</code> tags can!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Background Image vs Regular Image -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-balance-scale"></i> Background Image vs Regular &lt;img&gt; Tag</h2>
+
+            <table class="table table-bordered comparison-table mt-4">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Background Image (CSS)</th>
+                        <th>Regular &lt;img&gt; Tag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">Purpose</td>
+                        <td>Decorative, backgrounds</td>
+                        <td>Content images (photos, diagrams)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Text Overlay</td>
+                        <td><span class="text-success">✓ Easy</span></td>
+                        <td><span class="text-danger">✗ Difficult</span></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Control Position</td>
+                        <td><span class="text-success">✓ Full control</span></td>
+                        <td><span class="text-warning">~ Limited</span></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Control Size</td>
+                        <td><span class="text-success">✓ background-size</span></td>
+                        <td><span class="text-warning">~ width/height</span></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">SEO / Accessibility</td>
+                        <td><span class="text-warning">~ No alt text</span></td>
+                        <td><span class="text-success">✓ Has alt text</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-info">
+                <strong><i class="fas fa-lightbulb"></i> Rule of Thumb:</strong><br>
+                Use <code>background-image</code> for decoration. Use <code>&lt;img&gt;</code> for content that matters!
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Adding Background Images - Inline CSS -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-image"></i> Background Images - Inline CSS</h2>
+            <p>Add background images directly in HTML using the <code>style</code> attribute:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">&lt;!-- Inline CSS --&gt;</span><br>
+                        &lt;<span class="tag">div</span> <span class="attr">style</span>=<span class="val">"<br>
+                            &nbsp; background-image: url('image.jpg');<br>
+                            &nbsp; background-size: cover;<br>
+                            &nbsp; background-position: center;<br>
+                            &nbsp; padding: 40px;<br>
+                            &nbsp; color: white;"</span>&gt;<br>
+                        &nbsp; &lt;<span class="tag">h2</span>&gt;Hello World&lt;/<span class="tag">h2</span>&gt;<br>
+                        &lt;/<span class="tag">div</span>&gt;
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Live Example:</h4>
+                    <div class="bg-demo-inline">
+                        <h3>Text Over Background!</h3>
+                        <p>This uses inline CSS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Adding Background Images - External CSS -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-file-code"></i> Background Images - External CSS</h2>
+            <p>Better approach: Define background images in external CSS files or <code>&lt;style&gt;</code> tags:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">/* External CSS or &lt;style&gt; tag */</span><br>
+                        <span class="tag">.hero-section</span> {<br>
+                        &nbsp; <span class="css-prop">background-image</span>: <span
+                            class="css-val">url('hero.jpg')</span>;<br>
+                        &nbsp; <span class="css-prop">background-size</span>: <span class="css-val">cover</span>;<br>
+                        &nbsp; <span class="css-prop">background-position</span>: <span
+                            class="css-val">center</span>;<br>
+                        &nbsp; <span class="css-prop">padding</span>: <span class="css-val">60px</span>;<br>
+                        &nbsp; <span class="css-prop">color</span>: <span class="css-val">white</span>;<br>
+                        }<br><br>
+
+                        <span class="comment">&lt;!-- HTML --&gt;</span><br>
+                        &lt;<span class="tag">div</span> <span class="attr">class</span>=<span
+                            class="val">"hero-section"</span>&gt;<br>
+                        &nbsp; &lt;<span class="tag">h1</span>&gt;Welcome&lt;/<span class="tag">h1</span>&gt;<br>
+                        &lt;/<span class="tag">div</span>&gt;
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Live Example:</h4>
+                    <div class="bg-demo-external">
+                        <h3>External CSS Method</h3>
+                        <p>Cleaner and reusable!</p>
+                    </div>
+                    <div class="alert alert-success mt-3">
+                        <strong><i class="fas fa-thumbs-up"></i> Best Practice:</strong><br>
+                        Always use external CSS for better organization and reusability!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Background Properties -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-cogs"></i> Important Background Properties</h2>
+
+            <table class="table table-bordered mt-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Property</th>
+                        <th>Values</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>background-image</code></td>
+                        <td><code>url('path.jpg')</code></td>
+                        <td>Sets the background image</td>
+                    </tr>
+                    <tr>
+                        <td><code>background-size</code></td>
+                        <td><code>cover</code>, <code>contain</code>, <code>100px</code></td>
+                        <td><strong>cover</strong> = fills entire area<br><strong>contain</strong> = fits inside</td>
+                    </tr>
+                    <tr>
+                        <td><code>background-position</code></td>
+                        <td><code>center</code>, <code>top left</code>, <code>50% 50%</code></td>
+                        <td>Controls where the image is positioned</td>
+                    </tr>
+                    <tr>
+                        <td><code>background-repeat</code></td>
+                        <td><code>no-repeat</code>, <code>repeat</code>, <code>repeat-x</code></td>
+                        <td>Controls if/how image repeats</td>
+                    </tr>
+                    <tr>
+                        <td><code>background-attachment</code></td>
+                        <td><code>fixed</code>, <code>scroll</code></td>
+                        <td><strong>fixed</strong> = stays while scrolling (parallax effect)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning">
+                <strong>Tip:</strong> Always set <code>background-size: cover;</code> and
+                <code>background-position: center;</code> for best results!
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 13: Advanced - Dark Overlay -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-magic"></i> Pro Tip: Adding Dark Overlay</h2>
+            <p>Make text readable on background images by adding a dark overlay using gradients:</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">/* CSS */</span><br>
+                        <span class="tag">.overlay-section</span> {<br>
+                        &nbsp; <span class="css-prop">background-image</span>:<br>
+                        &nbsp; &nbsp; <span class="comment">/* Dark overlay */</span><br>
+                        &nbsp; &nbsp; <span class="css-val">linear-gradient(</span><br>
+                        &nbsp; &nbsp; &nbsp; <span class="css-val">rgba(0, 0, 0, 0.5),</span><br>
+                        &nbsp; &nbsp; &nbsp; <span class="css-val">rgba(0, 0, 0, 0.5)</span><br>
+                        &nbsp; &nbsp; <span class="css-val">)</span>,<br>
+                        &nbsp; &nbsp; <span class="comment">/* Your image */</span><br>
+                        &nbsp; &nbsp; <span class="css-val">url('image.jpg')</span>;<br>
+                        &nbsp; <span class="css-prop">background-size</span>: <span class="css-val">cover</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Live Example:</h4>
+                    <div class="overlay-demo">
+                        <h2>Text is Now Readable!</h2>
+                        <p>The dark overlay makes text stand out</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-3">
+                <strong><i class="fas fa-info-circle"></i> How it Works:</strong><br>
+                The <code>rgba(0, 0, 0, 0.5)</code> creates a semi-transparent black layer. Change <code>0.5</code> to
+                control darkness (0 = transparent, 1 = fully black).
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 14: Practice Challenge -->
+    <div class="slide-container">
+        <div class="slide-content text-center">
+            <h1><i class="fas fa-laptop-code"></i> Practice Time!</h1>
+            <p class="lead">Try these challenges in your code editor:</p>
+
+            <div class="row text-start mt-4">
+                <div class="col-md-6">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header bg-primary text-white">
+                            <strong>Challenge 1: Font Styling</strong>
+                        </div>
+                        <div class="card-body">
+                            <p>Create a paragraph with:</p>
+                            <ul>
+                                <li>The first word <strong>bold</strong></li>
+                                <li>The second word <em>italic</em></li>
+                                <li>The third word <strong><em>both</em></strong></li>
+                            </ul>
+                            <p class="text-muted">Try using both HTML tags and CSS!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header bg-success text-white">
+                            <strong>Challenge 2: Background Image</strong>
+                        </div>
+                        <div class="card-body">
+                            <p>Create a div with:</p>
+                            <ul>
+                                <li>A background image of your choice</li>
+                                <li>White text with padding</li>
+                                <li>Dark overlay for readability</li>
+                                <li>Centered content</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card text-start mx-auto bg-dark text-white" style="max-width: 700px;">
+                <div class="card-header bg-danger">
+                    Starter Code
+                </div>
+                <div class="card-body">
+                    <pre style="margin: 0; color: #ddd; font-size: 13px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    .hero {
+      background-image: 
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url('your-image-url-here');
+      background-size: cover;
+      background-position: center;
+      padding: 80px;
+      text-align: center;
+      color: white;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="hero"&gt;
+    &lt;h1&gt;Your Title Here&lt;/h1&gt;
+    &lt;p&gt;Your subtitle here&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 15: Summary -->
+    <div class="slide-container">
+        <div class="slide-content">
+            <h1 class="text-center"><i class="fas fa-check-circle"></i> Summary</h1>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4><i class="fas fa-font"></i> Font Styling:</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>Bold:</strong> <code>&lt;strong&gt;</code>, <code>&lt;b&gt;</code>, or
+                            <code>font-weight: bold;</code>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Italic:</strong> <code>&lt;em&gt;</code>, <code>&lt;i&gt;</code>, or
+                            <code>font-style: italic;</code>
+                        </li>
+                        <li class="list-group-item">
+                            Use semantic tags (<code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>) when meaning
+                            matters
+                        </li>
+                        <li class="list-group-item">
+                            Use CSS for pure visual styling
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h4><i class="fas fa-image"></i> Background Images:</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            Use <code>background-image: url('...');</code>
+                        </li>
+                        <li class="list-group-item">
+                            Set <code>background-size: cover;</code> for best results
+                        </li>
+                        <li class="list-group-item">
+                            Add dark overlays with <code>linear-gradient()</code>
+                        </li>
+                        <li class="list-group-item">
+                            Prefer external CSS over inline styles
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-success mt-4 text-center">
+                <h4><i class="fas fa-graduation-cap"></i> Keep Practicing!</h4>
+                <p>The more you practice, the better you'll become at styling websites!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const slideNumber = document.getElementById('slide-number');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            slideNumber.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        updateSlide();
+    </script>
+
+</body>
+
+</html>

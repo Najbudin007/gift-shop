@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Recap & New Concepts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            /* Prevent scrolling, treat like slides */
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateX(100px);
+            /* Slide in effect */
+            pointer-events: none;
+            /* Click through hidden slides */
+        }
+
+        /* Active Slide */
+        .slide-container.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* Slide Content Box */
+        .slide-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 90%;
+            min-height: 500px;
+            border-left: 10px solid #0d6efd;
+            /* Bootstrap Primary Blue */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1,
+        h2 {
+            color: #212529;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 15px 0;
+            border-left: 4px solid #0d6efd;
+        }
+
+        .concept-card {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation Controls */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-nav {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+        }
+
+        .progress-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #e9ecef;
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #0d6efd;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Specific styles for layout visualization */
+        .layout-demo header,
+        .layout-demo footer {
+            background: #ffc107;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .layout-demo nav {
+            background: #17a2b8;
+            padding: 10px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .layout-demo section {
+            background: #e2e3e5;
+            padding: 20px;
+            margin-bottom: 5px;
+            height: 100px;
+        }
+
+        .layout-demo aside {
+            background: #6c757d;
+            color: white;
+            padding: 20px;
+            margin-bottom: 5px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="progress-bar-container">
+        <div class="progress-fill" id="progress"></div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-outline-primary btn-nav" onclick="prevSlide()" title="Previous"><i
+                class="fas fa-chevron-left"></i></button>
+        <span id="slide-number" class="mx-2 fw-bold text-muted">1 / 10</span>
+        <button class="btn btn-primary btn-nav" onclick="nextSlide()" title="Next"><i
+                class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <div class="slide-container active">
+        <div class="slide-content text-center" style="border-left: none; border-top: 10px solid #0d6efd;">
+            <h1 class="display-3 text-primary">HTML Recap & New Concepts</h1>
+            <p class="lead text-muted mt-3">From Basics to Layouts & Charsets</p>
+            <hr class="my-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-start">
+                    <h5><i class="fas fa-list-check text-success me-2"></i> Today's Agenda:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-transparent">1. Quick Recap (p, a, img, lists, tables)</li>
+                        <li class="list-group-item bg-transparent fw-bold text-primary">2. New Topic: Buttons</li>
+                        <li class="list-group-item bg-transparent fw-bold text-primary">3. Theory: Character Sets
+                            (UTF-8)</li>
+                        <li class="list-group-item bg-transparent fw-bold text-primary">4. Theory: HTML Layouts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-history text-warning"></i> Recap: Basic Elements</h2>
+            <p>Let's review the core building blocks we learned.</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="concept-card">
+                        <h5>&lt;p&gt; Paragraph</h5>
+                        <p class="small">Used for blocks of text. It automatically adds spacing before and after.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h5>&lt;a&gt; Anchor (Links)</h5>
+                        <p class="small">The <code>href</code> attribute is mandatory.</p>
+                        <div class="code-block">&lt;a href="google.com"&gt;Click&lt;/a&gt;</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="concept-card">
+                        <h5>&lt;img&gt; Images</h5>
+                        <p class="small">Self-closing tag. Key attributes: <code>src</code> (source) and
+                            <code>alt</code> (alternative text).
+                        </p>
+                        <div class="code-block">&lt;img src="pic.jpg" alt="A cat"&gt;</div>
+                    </div>
+                    <div class="alert alert-info mt-2">
+                        <small><strong>Note:</strong> Attributes like <code>class</code>, <code>id</code>, and
+                            <code>style</code> can be used on almost all elements.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-table text-warning"></i> Recap: Lists, Comments & Tables</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Lists</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>&lt;ul&gt;</strong>: Unordered (Bullet points)</li>
+                        <li class="list-group-item"><strong>&lt;ol&gt;</strong>: Ordered (Numbers 1, 2, 3...)</li>
+                        <li class="list-group-item"><strong>&lt;li&gt;</strong>: The actual List Item</li>
+                    </ul>
+                    <h4 class="mt-3">Comments</h4>
+                    <div class="code-block">&lt;!-- I am invisible in browser --&gt;</div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Tables</h4>
+                    <table class="table table-bordered table-sm mt-2 text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Tag</th>
+                                <th>Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&lt;table&gt;</td>
+                                <td>Container</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;tr&gt;</td>
+                                <td>Table Row</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;th&gt;</td>
+                                <td>Header (Bold)</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;td&gt;</td>
+                                <td>Data (Cell)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-hand-pointer text-primary"></i> New Topic: HTML Buttons</h2>
+            <p>The <code>&lt;button&gt;</code> tag defines a clickable button.</p>
+
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <div class="code-block">
+                        &lt;button type="button"&gt;Click Me!&lt;/button&gt;
+
+                        &lt;!-- Button with icon/image inside --&gt;
+                        &lt;button type="button"&gt;
+                        &lt;img src="icon.png"&gt; Save
+                        &lt;/button&gt;
+                    </div>
+                </div>
+                <div class="col-md-5 text-center">
+                    <div class="card p-3">
+                        <h6>Live Output:</h6>
+                        <button class="btn btn-secondary mb-2">Standard Button</button>
+                        <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Critical Attributes:</h5>
+            <ul>
+                <li><code>type="button"</code>: Standard clickable button (JS usually handles click).</li>
+                <li><code>type="submit"</code>: Submits form data to a server (Default behavior).</li>
+                <li><code>disabled</code>: Makes the button unclickable.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-globe text-info"></i> Theory: Character Sets</h2>
+            <p class="lead">How does the browser know how to display text?</p>
+
+            <div class="alert alert-secondary">
+                To display an HTML page correctly, a web browser must know the <strong>character set</strong> (encoding)
+                to use.
+            </div>
+
+            <div class="code-block text-center">
+                &lt;meta charset="UTF-8"&gt;
+            </div>
+
+            <h5 class="mt-3">The Evolution:</h5>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne">
+                            1. ASCII (The Beginning)
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            The first standard. Supported only 128 characters (English letters, numbers, and basic
+                            symbols). No foreign accents or emojis.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo">
+                            2. ANSI & ISO-8859-1 (Windows & Early Web)
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Expanded to 256 characters. This allowed for Western European languages (like French,
+                            German) but still couldn't handle Asian languages or complex symbols.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-star text-warning"></i> Why we use UTF-8</h2>
+
+            <p><strong>UTF-8</strong> (Unicode Transformation Format) is the modern standard for HTML5.</p>
+
+            <div class="row mt-4">
+                <div class="col-md-4 text-center">
+                    <div class="p-4 bg-light border rounded">
+                        <h1 class="display-4">A</h1>
+                        <p>English</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-4 bg-light border rounded">
+                        <h1 class="display-4">あ</h1>
+                        <p>Japanese</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-4 bg-light border rounded">
+                        <h1 class="display-4">😎</h1>
+                        <p>Emojis</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-primary text-white rounded">
+                <strong>Bottom Line:</strong> Always include <code>&lt;meta charset="UTF-8"&gt;</code> in your
+                <code>&lt;head&gt;</code> tag to ensure your website works globally on all devices.
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-layer-group text-purple"></i> HTML Layouts</h2>
+            <p>Websites are not just one long column of text. They have structure.</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Semantic Elements</h5>
+                    <p>HTML5 introduced tags that describe <em>what</em> the content is, rather than just how it looks.
+                    </p>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>&lt;header&gt;</strong>: Top area (Logo, Title)</li>
+                        <li class="list-group-item"><strong>&lt;nav&gt;</strong>: Menu links</li>
+                        <li class="list-group-item"><strong>&lt;section&gt;</strong>: A specific section of content</li>
+                        <li class="list-group-item"><strong>&lt;article&gt;</strong>: Independent content (blog post)
+                        </li>
+                        <li class="list-group-item"><strong>&lt;footer&gt;</strong>: Bottom area (Copyright, contact)
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="layout-demo border p-2">
+                        <header>&lt;header&gt;</header>
+                        <nav>&lt;nav&gt;</nav>
+                        <div class="d-flex">
+                            <section class="flex-grow-1">&lt;section&gt; / &lt;article&gt;</section>
+                            <aside style="width: 30%;">&lt;aside&gt;</aside>
+                        </div>
+                        <footer>&lt;footer&gt;</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-tools text-secondary"></i> How to Create Layouts</h2>
+            <p>We know the tags (header, footer), but how do we arrange them side-by-side?</p>
+
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="card h-100 border-danger">
+                        <div class="card-header bg-danger text-white">1. Floats</div>
+                        <div class="card-body">
+                            <small>The "Old Way". Using <code>float: left</code>. Hard to manage and requires "clearing"
+                                floats. Not recommended for main layouts anymore.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-primary">
+                        <div class="card-header bg-primary text-white">2. Flexbox</div>
+                        <div class="card-body">
+                            <small>Great for 1-dimensional layouts (rows OR columns). Excellent for aligning items
+                                inside a container.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-success">
+                        <div class="card-header bg-success text-white">3. CSS Grid</div>
+                        <div class="card-body">
+                            <small>The most powerful system. Handles 2-dimensional layouts (rows AND columns)
+                                simultaneously.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-info">
+                        <div class="card-header bg-info text-white">4. Frameworks</div>
+                        <div class="card-body">
+                            <small>Tools like <strong>Bootstrap</strong> or <strong>W3.CSS</strong> use Flexbox/Grid
+                                under the hood to make layouts easy (like this presentation!).</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content text-center">
+            <h1 class="text-success">Summary</h1>
+            <hr>
+            <div class="row text-start mt-4">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-check-circle text-success"></i> We Reviewed:</h5>
+                    <ul>
+                        <li>Paragraphs, Links, Images</li>
+                        <li>Lists & Tables</li>
+                        <li>Attributes & Comments</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5><i class="fas fa-lightbulb text-warning"></i> We Learned:</h5>
+                    <ul>
+                        <li><strong>Buttons:</strong> Use <code>&lt;button&gt;</code></li>
+                        <li><strong>Charset:</strong> Always use UTF-8 for global support</li>
+                        <li><strong>Layout:</strong> Use Semantic tags (header, nav) and modern CSS (Flex/Grid)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content text-center" style="border-left: none; border-right: 10px solid #0d6efd;">
+            <h1 class="display-1 text-primary"><i class="fas fa-code"></i></h1>
+            <h2 class="display-4">Any Questions?</h2>
+            <p class="lead">Time to practice!</p>
+
+            <div class="mt-4">
+                <button class="btn btn-outline-primary btn-lg" onclick="location.reload()">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="buttons">
+        <button type="button">New Button</button>
+        <button type="submit">Upload/Create</button>
+    </div>
+
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const progressBar = document.getElementById('progress');
+        const slideNumberDisplay = document.getElementById('slide-number');
+
+        function updateSlide() {
+            // Update Visuals
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            // Update Progress Bar
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Update Number
+            slideNumberDisplay.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

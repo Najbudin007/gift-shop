@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to CSS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background-color: #212529;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .slide-container.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* Slide Content Box */
+        .slide-content {
+            background: white;
+            color: #333;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            max-width: 950px;
+            width: 90%;
+            min-height: 550px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-top: 10px solid #2965f1;
+        }
+
+        h1,
+        h2 {
+            color: #2965f1;
+            font-weight: 800;
+        }
+
+        h4 {
+            color: #444;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        /* Code Blocks */
+        .code-box {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            border-left: 5px solid #e34c26;
+            margin: 10px 0;
+        }
+
+        .tag {
+            color: #569cd6;
+        }
+
+        .attr {
+            color: #9cdcfe;
+        }
+
+        .val {
+            color: #ce9178;
+        }
+
+        .css-prop {
+            color: #9cdcfe;
+        }
+
+        .css-val {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        /* Comparison Table */
+        .comparison-table th {
+            background-color: #2965f1;
+            color: white;
+        }
+
+        /* Navigation Controls */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-nav {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-nav:hover {
+            background: white;
+            color: #333;
+        }
+
+        /* Demo Boxes */
+        .demo-box {
+            padding: 10px;
+            border: 2px dashed #ccc;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .id-demo {
+            background-color: #ffc107;
+            color: black;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .class-demo {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        /* --- NEW STYLES FOR MARGIN/PADDING DEMO --- */
+        .box-visual {
+            background-color: #e2e3e5;
+            padding: 20px;
+            /* Represents Margin */
+            border: 1px dashed #999;
+            position: relative;
+        }
+
+        .box-visual::before {
+            content: "Margin (Outside)";
+            position: absolute;
+            top: 0;
+            left: 5px;
+            font-size: 10px;
+            color: #666;
+        }
+
+        .box-border {
+            border: 5px solid #333;
+            background-color: #fff3cd;
+            /* Padding Color */
+            padding: 20px;
+            /* Represents Padding */
+            position: relative;
+        }
+
+        .box-border::before {
+            content: "Border";
+            position: absolute;
+            top: -18px;
+            right: 0;
+            font-size: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .box-content {
+            background-color: #2965f1;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .box-content::before {
+            content: "Padding (Inside)";
+            position: absolute;
+            top: 5px;
+            left: 25px;
+            font-size: 10px;
+            color: #856404;
+        }
+
+        /* --- NEW STYLES FOR DISPLAY DEMO --- */
+        .d-box {
+            padding: 10px;
+            color: white;
+            margin-bottom: 5px;
+            border: 1px solid white;
+        }
+
+        .bg-block {
+            background-color: #dc3545;
+        }
+
+        .bg-inline {
+            background-color: #198754;
+        }
+
+        .bg-inline-block {
+            background-color: #6610f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls">
+        <button class="btn btn-nav" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+        <span id="slide-number" class="mx-3 fw-bold">1 / 10</span>
+        <button class="btn btn-nav" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <div class="slide-container active">
+        <div class="slide-content text-center">
+            <i class="fab fa-css3-alt fa-5x text-primary mb-3"></i>
+            <h1 class="display-3">Welcome to CSS</h1>
+            <p class="lead text-muted">Cascading Style Sheets</p>
+            <hr>
+            <div class="text-start mx-auto" style="max-width: 600px;">
+                <h5><i class="fas fa-clipboard-list"></i> Today's Agenda:</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">1. What are Classes and IDs?</li>
+                    <li class="list-group-item">2. Three ways to write CSS</li>
+                    <li class="list-group-item fw-bold text-primary">3. Margin vs. Padding (The Box Model)</li>
+                    <li class="list-group-item fw-bold text-primary">4. The Display Property</li>
+                    <li class="list-group-item">5. Hands-on Practice</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-users"></i> The "Class" Attribute</h2>
+            <p>A <strong>Class</strong> is a name you give to a <em>group</em> of elements you want to style the same
+                way.</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">&lt;!-- HTML --&gt;</span><br>
+                        &lt;<span class="tag">p</span> <span class="attr">class</span>=<span
+                            class="val">"highlight"</span>&gt;Text 1&lt;/<span class="tag">p</span>&gt;<br>
+                        &lt;<span class="tag">p</span> <span class="attr">class</span>=<span
+                            class="val">"highlight"</span>&gt;Text 2&lt;/<span class="tag">p</span>&gt;
+
+                        <br><br><span class="comment">/* CSS Syntax (starts with .) */</span><br>
+                        <span class="tag">.highlight</span> {<br>
+                        &nbsp; <span class="css-prop">color</span>: <span class="css-val">green</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Result:</h4>
+                    <div class="demo-box">
+                        <p class="class-demo">I have class="highlight"</p>
+                        <p class="class-demo">I also have class="highlight"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-id-card"></i> The "ID" Attribute</h2>
+            <p>An <strong>ID</strong> is a unique identifier for a <em>single</em> element.</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="comment">&lt;!-- HTML --&gt;</span><br>
+                        &lt;<span class="tag">h1</span> <span class="attr">id</span>=<span
+                            class="val">"main-title"</span>&gt;Welcome&lt;/<span class="tag">h1</span>&gt;
+
+                        <br><br><span class="comment">/* CSS Syntax (starts with #) */</span><br>
+                        <span class="tag">#main-title</span> {<br>
+                        &nbsp; <span class="css-prop">background-color</span>: <span class="css-val">gold</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Result:</h4>
+                    <div class="demo-box">
+                        <div class="id-demo">I am Unique (id="main-title")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-balance-scale"></i> Class vs. ID</h2>
+            <table class="table table-bordered comparison-table mt-4 text-center">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Class</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">HTML Attribute</td>
+                        <td><code>class="..."</code></td>
+                        <td><code>id="..."</code></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">CSS Symbol</td>
+                        <td><strong>.</strong> (Dot)</td>
+                        <td><strong>#</strong> (Hash/Pound)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Frequency</td>
+                        <td>Many elements</td>
+                        <td>Unique (ONE element)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-layer-group"></i> 3 Ways to Add CSS</h2>
+            <div class="row text-center mt-4">
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <h4 class="text-danger">1. Inline</h4>
+                        <p>In HTML tag: <code>style="..."</code></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <h4 class="text-warning">2. Internal</h4>
+                        <p>In head: <code>&lt;style&gt;...&lt;/style&gt;</code></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <h4 class="text-success">3. External</h4>
+                        <p>Link .css file: <code>&lt;link&gt;</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-box-open"></i> The Box Model: Margin vs. Padding</h2>
+
+            <p>Every element in HTML is essentially a box. Understanding the space <em>inside</em> and <em>outside</em>
+                that box is crucial.</p>
+
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="box-visual">
+                        <div class="box-border">
+                            <div class="box-content">
+                                <h3>I am the Content</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong class="text-warning">PADDING (Inside):</strong><br>
+                            The space between the <strong>Content</strong> and the <strong>Border</strong>.
+                            <br><small class="text-muted">Like wearing a puffy winter coat. You get bigger, but it's
+                                attached to you.</small>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-secondary">MARGIN (Outside):</strong><br>
+                            The space between the <strong>Border</strong> and the <strong>Next Element</strong>.
+                            <br><small class="text-muted">Like "Personal Space" or social distancing. It pushes others
+                                away.</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-code"></i> Coding Space</h2>
+            <p>How we write it in CSS:</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="code-box">
+                        <span class="tag">.my-box</span> {<br>
+                        &nbsp; <span class="css-prop">border</span>: <span class="css-val">1px solid black</span>;<br>
+                        &nbsp; <span class="comment">/* Space INSIDE the box */</span><br>
+                        &nbsp; <span class="css-prop">padding</span>: <span class="css-val">20px</span>;<br><br>
+                        &nbsp; <span class="comment">/* Space OUTSIDE the box */</span><br>
+                        &nbsp; <span class="css-prop">margin</span>: <span class="css-val">50px</span>;<br>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="alert alert-info">
+                        <strong><i class="fas fa-lightbulb"></i> Pro Tip:</strong><br>
+                        You can specify sides individually!<br><br>
+                        <code>margin-top: 10px;</code><br>
+                        <code>padding-left: 20px;</code>
+                    </div>
+                    <div class="alert alert-warning">
+                        If you set <code>margin: auto;</code> with a width, the element centers itself horizontally!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content">
+            <h2><i class="fas fa-tv"></i> The Display Property</h2>
+
+            <p>This controls how elements behave in the "flow" of the page.</p>
+
+            <table class="table table-sm text-start mt-3">
+                <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Description</th>
+                        <th>Visual Demo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>display: block;</code></td>
+                        <td>Takes up the <strong>full width</strong> available. Starts on a new line.<br><small>(e.g.,
+                                &lt;div&gt;, &lt;p&gt;, &lt;h1&gt;)</small></td>
+                        <td>
+                            <div class="d-box bg-block">Block 1</div>
+                            <div class="d-box bg-block">Block 2</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>display: inline;</code></td>
+                        <td>Takes only <strong>needed width</strong>. Does NOT start on new line. Top/Bottom margins
+                            don't work.<br><small>(e.g., &lt;span&gt;, &lt;a&gt;)</small></td>
+                        <td>
+                            <span class="d-box bg-inline">Inline 1</span>
+                            <span class="d-box bg-inline">Inline 2</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>display: inline-block;</code></td>
+                        <td><strong>Best of both!</strong> Sits on the same line, but respects
+                            height/width/margins.<br><small>(e.g., Buttons, Cards)</small></td>
+                        <td>
+                            <div class="d-box bg-inline-block" style="display: inline-block;">Box 1</div>
+                            <div class="d-box bg-inline-block" style="display: inline-block;">Box 2</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <div class="slide-content text-center">
+            <h1><i class="fas fa-laptop-code"></i> Practice Time!</h1>
+            <p class="lead">Open your code editor and try <strong>Inline CSS</strong>.</p>
+
+            <div class="card text-start mx-auto bg-dark text-white mb-3" style="max-width: 700px;">
+                <div class="card-header bg-secondary">
+                    Task: Copy this code and change the colors
+                </div>
+                <div class="card-body">
+                    <pre style="margin: 0; color: #ddd;">
+&lt;!-- Challenge: Add padding and margin! --&gt;
+&lt;button style="
+    background-color: blue; 
+    color: white;
+    padding: 15px; 
+    margin: 20px;
+    display: inline-block;"&gt;
+  I have personal space!
+&lt;/button&gt;
+                    </pre>
+                </div>
+            </div>
+            <p><strong>Challenge:</strong> Try changing <code>display: inline-block</code> to
+                <code>display: block</code> on the button. What happens?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const slideNumber = document.getElementById('slide-number');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            slideNumber.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        updateSlide();
+    </script>
+
+</body>
+
+</html>

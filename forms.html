@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Forms Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+
+        .explanation {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .explanation p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .form-description {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="date"],
+        input[type="tel"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            margin: 10px 0;
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            display: inline-block;
+            margin-right: 20px;
+            font-weight: normal;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+            width: auto;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .clear-btn {
+            background: #dc3545;
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .clear-btn:hover {
+            background: #c82333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-style: italic;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 HTML Forms Tutorial</h1>
+            <p>Complete Guide with Examples & In-Memory Storage Demo</p>
+        </div>
+
+        <div class="content">
+            <!-- Explanation Section -->
+            <div class="section">
+                <h2>What are HTML Forms?</h2>
+                <div class="explanation">
+                    <p><strong>HTML Forms</strong> are interactive elements that allow users to input and submit data to
+                        a web server or process it using JavaScript. Forms are essential for user interactions like
+                        registration, login, surveys, contact forms, and more.</p>
+
+                    <p><strong>Key Components:</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li><code>&lt;form&gt;</code> - Container element for all form controls</li>
+                        <li><code>&lt;input&gt;</code> - Various input types for different data</li>
+                        <li><code>&lt;textarea&gt;</code> - Multi-line text input</li>
+                        <li><code>&lt;select&gt;</code> - Dropdown menus</li>
+                        <li><code>&lt;button&gt;</code> - Submit or action buttons</li>
+                        <li><code>&lt;label&gt;</code> - Describes form inputs</li>
+                    </ul>
+
+                    <p style="margin-top: 15px;"><strong>Note about Storage:</strong> This demo uses in-memory storage
+                        (JavaScript variables) instead of browser storage. Data persists only during your current
+                        session and will be lost when you refresh the page.</p>
+                </div>
+            </div>
+
+            <!-- Form Input Types -->
+            <div class="section">
+                <h2>Form Input Types</h2>
+
+                <div class="form-description">
+                    <h3>Text Input</h3>
+                    <p><code>&lt;input type="text"&gt;</code> - Single-line text input for names, titles, etc.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Email Input</h3>
+                    <p><code>&lt;input type="email"&gt;</code> - Validates email format automatically.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Password Input</h3>
+                    <p><code>&lt;input type="password"&gt;</code> - Masks characters for security.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Number Input</h3>
+                    <p><code>&lt;input type="number"&gt;</code> - Only accepts numeric values.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Date Input</h3>
+                    <p><code>&lt;input type="date"&gt;</code> - Provides a date picker.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Textarea</h3>
+                    <p><code>&lt;textarea&gt;</code> - Multi-line text input for comments, descriptions, etc.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Select (Dropdown)</h3>
+                    <p><code>&lt;select&gt;</code> - Dropdown menu with predefined options.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Radio Buttons</h3>
+                    <p><code>&lt;input type="radio"&gt;</code> - Single selection from multiple options.</p>
+                </div>
+
+                <div class="form-description">
+                    <h3>Checkboxes</h3>
+                    <p><code>&lt;input type="checkbox"&gt;</code> - Multiple selections allowed.</p>
+                </div>
+            </div>
+
+            <!-- Working Form -->
+            <div class="section">
+                <h2>Interactive Form Example</h2>
+
+                <form id="studentForm">
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="98XXXXXXXX">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <select id="course">
+                            <option value="">-- Select Course --</option>
+                            <option value="HTML">HTML</option>
+                            <option value="CSS">CSS</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="React">React</option>
+                        </select>
+                    </div>
+
+                    <!-- Nature of Radio button is to allow single value into database -->
+                    <!-- Can be selected multiple if, different names are provided for the radio buttons. -->
+
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="genders" value="Male" required> Male</label>
+                            <label><input type="radio" name="genders" value="Male"> Female</label>
+                            <label><input type="radio" name="genders" value="test">TEST</label>
+                            <label><input type="radio" name="genders" value="Other"> Other</label>
+                        </div>
+                    </div>
+
+                    <!-- Nature of Select Button is to allow multiple Values in databse -->
+                    <!-- Can be Selected multiple, but need to add same name, to store all the values correctly in database. -->
+
+                    <div class="form-group">
+                        <label>Skills</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="skills" value="HTML"> HTML</label>
+                            <label><input type="checkbox" name="skills" value="CSS"> CSS</label>
+                            <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
+                            <label><input type="checkbox" name="skills" value="React"> React</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Comments</label>
+                        <textarea id="comments" placeholder="something..." rows="10" cols="20"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Form</button>
+                </form>
+
+                <!-- Data Table -->
+                <div id="tableContainer"></div>
+
+                <button id="clearData" class="clear-btn">Clear All Data</button>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // In-memory storage array (replaces localStorage)
+        let submittedData = [];
+
+        // Load and display data on page load
+        displayData();
+
+        // Form submission handler
+        document.getElementById('studentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                age: document.getElementById('age').value,
+                dob: document.getElementById('dob').value,
+                course: document.getElementById('course').value,
+                gender: document.querySelector('input[name="genders"]:checked').value,
+                skills: Array.from(document.querySelectorAll('input[name="skills"]:checked'))
+                    .map(cb => cb.value).join(', '),
+                comments: document.getElementById('comments').value,
+                submittedAt: new Date().toLocaleString()
+            };
+
+            // Add to in-memory storage
+            submittedData.push(formData);
+
+            // Display updated data
+            displayData();
+
+            // Reset form
+            this.reset();
+
+            // Show success message
+            alert('Form submitted successfully! Data stored in memory.');
+        });
+
+        // Function to display data in table
+        function displayData() {
+            const container = document.getElementById('tableContainer');
+
+            if (submittedData.length === 0) {
+                container.innerHTML = '<div class="no-data">No data submitted yet. Fill out the form above to see data here.</div>';
+                return;
+            }
+
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Age</th>
+                            <th>DOB</th>
+                            <th>Course</th>
+                            <th>Gender</th>
+                            <th>Skills</th>
+                            <th>Comments</th>
+                            <th>Submitted At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            submittedData.forEach((data, index) => {
+                tableHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${data.fullName}</td>
+                        <td>${data.email}</td>
+                        <td>${data.phone || 'N/A'}</td>
+                        <td>${data.age}</td>
+                        <td>${data.dob || 'N/A'}</td>
+                        <td>${data.course}</td>
+                        <td>${data.gender}</td>
+                        <td>${data.skills || 'None'}</td>
+                        <td>${data.comments || 'N/A'}</td>
+                        <td>${data.submittedAt}</td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = tableHTML;
+        }
+
+        // Clear data button
+        document.getElementById('clearData').addEventListener('click', function () {
+            if (confirm('Are you sure you want to clear all data?')) {
+                submittedData = [];
+                displayData();
+                alert('All data cleared from memory!');
+            }
+        });
+    </script>
+</body>
+
+</html>
