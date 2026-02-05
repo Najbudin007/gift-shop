@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="./css/home.css">
     <link rel="icon" href="./img/fav.png" type="image/x-icon">
@@ -14,7 +16,7 @@
         <nav class="navbar">
             <!-- Logo -->
             <div class="logo">
-                <img src="./img/logo.jpg" alt="Gift Shop Logo">
+                <img src="./img/61213.jpg" alt="Gift Shop Logo">
             </div>
 
             <!-- Menu -->
@@ -28,7 +30,16 @@
 
             <!-- Button -->
             <a href="#" class="nav-btn">Shop Now</a>
+
+            <!-- Hamburger Menu -->
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
         </nav>
+
     </header>
 
     <!-- Banner Section -->
@@ -43,24 +54,79 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
+
+    <!-- About Us Sectoion -->
     <section class="about-section">
         <div class="about-container">
+
             <div class="about-image">
-                <img src="./img/about-image.jpg" alt="About Us">
+                <img src="./img/about-image.jpg" alt="about-us">
             </div>
+
             <div class="about-content">
                 <h2>About Our Gift Shop</h2>
-                <p>Welcome to our gift shop, where every present tells a story. We believe in the joy of giving and the
-                    happiness that comes from finding that perfect gift for someone special.</p>
-                <p>Our carefully curated collection features unique and thoughtful items that celebrate life's precious
-                    moments. Whether it's a birthday, anniversary, holiday, or just because, we help you express your
-                    love and appreciation.</p>
-                <p>At our gift shop, we're passionate about helping you create lasting memories through the art of
-                    thoughtful gift-giving.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur fuga nemo, voluptates facere
+                    corporis veritatis animi magni odio quae exercitationem.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum reiciendis excepturi doloremque odio
+                    cum quod quam facere nostrum, perspiciatis nesciunt.</p>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit maxime saepe iusto illo
+                    doloremque, cupiditate, ipsa blanditiis totam, non sunt maiores voluptatibus consequuntur quasi
+                    odio? Excepturi expedita rerum quod ipsam!</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Featured Gifts Section -->
+    <section class="products-section">
+        <div class="products-container">
+            <h2>Featured Gifts</h2>
+
+            <div class="products-grid">
+
+                <div class="product-card">
+                    <img src="./img/git1.jpg" alt="Gift Item 1">
+                    <h3>Birthday Surprise Box</h3>
+                    <p>A perfect gift to make birthdays memorable.</p>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+
+                <div class="product-card">
+                    <img src="./img/gift2.jpg" alt="Gift Item 2">
+                    <h3>Anniversary Combo</h3>
+                    <p>Express love with our curated anniversary gifts.</p>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+
+                <div class="product-card">
+                    <img src="./img/gift3.jpg" alt="Gift Item 3">
+                    <h3>Customized Mug</h3>
+                    <p>Add a personal touch to everyday moments.</p>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+
+                <div class="product-card">
+                    <img src="./img/git1.jpg" alt="Gift Item 4">
+                    <h3>Festival Gift Hamper</h3>
+                    <p>Celebrate festivals with joy and warmth.</p>
+                    <a href="#" class="product-btn">View Details</a>
+                </div>
+
             </div>
         </div>
     </section>
+
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector(".nav-links");
+            const hamburger = document.querySelector(".hamburger-menu");
+            navLinks.classList.toggle("active");
+            hamburger.classList.toggle("active");
+        }
+    </script>
+
 
 </body>
 

@@ -9,6 +9,13 @@ body {
     background-color: #f2f4f7;
 }
 
+/* Header */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
 /* Navbar container */
 .navbar {
     background-color: #ffffff;
@@ -18,6 +25,7 @@ body {
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 /* Logo */
@@ -102,21 +110,25 @@ body {
 
 
 /* 
-text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
 
-FIRST SHADOW: 3px 3px 6px rgba(0, 0, 0, 0.8)
 - 3px (horizontal offset) = shadow moves 3px to the right
 - 3px (vertical offset) = shadow moves 3px down
 - 6px (blur radius) = moderate blur for soft shadow edge
 - rgba(0, 0, 0, 0.8) = black color with 80% opacity
 
-SECOND SHADOW: 0 0 10px rgba(0, 0, 0, 0.5)
-- 0px (horizontal offset) = no horizontal movement
-- 0px (vertical offset) = no vertical movement
-- 10px (blur radius) = large blur creates a glow effect
-- rgba(0, 0, 0, 0.5) = black color with 50% opacity
-
 The first shadow provides depth, the second creates a glow effect for better readability.
+*/
+
+/* 
+box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
+
+First 5px : offset X
+Second 5px : Offeset Y
+Third 10px : Blur Raduis
+fourth 5px : Spread Raduis
+rgba : 0,0,0 is color and 0.5 is opacity
+
 */
 
 
@@ -146,7 +158,7 @@ The first shadow provides depth, the second creates a glow effect for better rea
 /* About Us Section */
 .about-section {
     padding: 80px 40px;
-    background-color: #ffffff;
+    background-color: #e91e63;
 }
 
 .about-container {
@@ -174,14 +186,219 @@ The first shadow provides depth, the second creates a glow effect for better rea
 
 .about-content h2 {
     font-size: 36px;
-    color: #333333;
     margin-bottom: 25px;
-    color: #e91e63;
+    color: #ffffff;
 }
 
 .about-content p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #555555;
+    line-height: 1.9;
+    color: #ffffff;
     margin-bottom: 20px;
+}
+
+/* Featured Products Section */
+.products-section {
+    padding: 80px 40px;
+    background-color: #f2f4f7;
+}
+
+.products-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.products-container h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 50px;
+    color: #333333;
+}
+
+/* CSS GRID */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+/*
+CSS Grid Explanation:
+- display: grid; enables grid layout
+- grid-template-columns: repeat(4, 1fr);
+  → creates 4 equal-width columns
+- gap: space between rows and columns
+*/
+
+.product-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.product-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.product-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #666666;
+}
+
+.product-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e91e63;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.product-btn:hover {
+    background-color: #c2185b;
+}
+
+
+
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+    position: relative;
+    z-index: 1001;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    background-color: #f0f0f0;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333333;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile */
+@media(max-width: 768px) {
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        /*  The height of the nav-links is set to be the
+            full height of the viewport minus the height
+            of the header (80px) 
+        */
+        background: #f8f8f8;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 0;
+        display: none;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        z-index: 998;
+        overflow-y: auto;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+
+    .nav-links li a {
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        padding: 10px 20px;
+        border-radius: 6px;
+    }
+
+    .nav-links li a:hover {
+        background-color: #e91e63;
+        color: white;
+    }
+
+    .nav-btn {
+        display: none;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hamburger Animation - Cross button effect */
+
+    /* 
+    The first bar of the hamburger menu is rotated by 45 degrees, 
+    translated by 8px on the x and y axes, and scaled by 1.2 on the x axis.
+    This creates the top part of the cross shape. 
+    */
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px) scaleX(1.2);
+        background-color: #e91e63;
+    }
+
+    /* 
+    The second bar of the hamburger menu is made invisible by setting 
+    its opacity to 0, and translated by -10px on the x axis.
+    This creates the middle part of the cross shape. 
+     */
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    /* 
+    The third bar of the hamburger menu is rotated by -45 degrees, 
+    translated by 6px on the x axis and -6px on the y axis, and scaled by 1.2 
+    on the x axis. This creates the bottom part of the cross shape. 
+    */
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px) scaleX(1.2);
+        background-color: #e91e63;
+    }
+
+    /* 
+    When the hamburger menu is active, 
+    its background color is set to a semi-transparent red color.
+    */
+    .hamburger-menu.active {
+        background-color: rgba(233, 30, 99, 0.1);
+    }
 }
